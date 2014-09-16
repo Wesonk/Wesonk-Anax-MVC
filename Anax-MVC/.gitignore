@@ -2,6 +2,9 @@
 *.sqlite
 *.log
 
+# Access files
+.htaccess
+
 
 # OS generated files 
 .DS_Store
