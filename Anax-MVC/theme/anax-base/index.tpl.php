@@ -8,6 +8,12 @@
 <link rel='stylesheet' type='text/css' href='<?=$this->url->asset($stylesheet)?>'/>
 <?php endforeach; ?>
 <?php if(isset($style)): ?><style><?=$style?></style><?php endif; ?>
+
+<?php if(isset($bootstrap_css)):?>
+    <link rel='stylesheet' type='text/css' href='<?=$this->url->asset($bootstrap_css)?>'/>
+    <link rel='stylesheet' type='text/css' href='<?=$this->url->asset($bootstrap_css_theme)?>'/>
+<?php endif; ?>
+
 <script src='<?=$this->url->asset($modernizr)?>'></script>
 </head>
 
@@ -39,6 +45,7 @@
 </div>
 
 <?php if(isset($jquery)):?><script src='<?=$this->url->asset($jquery)?>'></script><?php endif; ?>
+<?php if(isset($bootstrap_js)):?><script src='<?=$this->url->asset($bootstrap_js)?>'></script><?php endif; ?>
 
 <?php if(isset($javascript_include)): foreach($javascript_include as $val): ?>
 <script src='<?=$this->url->asset($val)?>'></script>

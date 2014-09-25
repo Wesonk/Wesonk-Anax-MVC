@@ -73,6 +73,11 @@ return [
 
         // Use google analytics for tracking, set key or null to disable
         'google_analytics' => null,
+
+        // Path to Bootstrap js/css/theme
+        'bootstrap_js' => 'js/bootstrap.min.js',
+        'bootstrap_css' => 'css/bootstrap.min.css',
+        'bootstrap_css_theme' => 'css/bootstrap-theme.min.css',
     ],
 ];
 

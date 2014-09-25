@@ -6,6 +6,12 @@ $app->navbar->configure(ANAX_APP_PATH . 'config/navbar_me.php');
 
 $app->url->setUrlType(\Anax\Url\CUrl::URL_CLEAN);
 
+$di->set('CommentController', function() use ($di) {
+    $controller = new Phpmvc\Comment\CommentController();
+    $controller->setDI($di);
+    return $controller;
+});
+
 $app->router->add('', function() use ($app) {
     $app->theme->setTitle("Start");
     $content = $app->fileContent->get('presentation.md');
@@ -15,6 +21,25 @@ $app->router->add('', function() use ($app) {
     $byline = $app->textFilter->doFilter($byline, 'shortcode, markdown');
 
     $app->views->add('me/page',['content'=> $content,'byline'=>$byline,]);
+
+
+    // if edit isn't loaded then do this
+    if(!$app->request->getPost('edit')){
+        $app->views->add('comment/form', [
+            'mail' => null,
+            'web' => null,
+            'name' => null,
+            'content' => null,
+            'output' => null,
+        ]);
+    }
+
+    $app->dispatcher->forward([
+        'controller' => 'comment',
+        'action'     => 'view',
+    ]);
+    $app->theme->addJavaScript('js/comment.js');
+    $app->theme->addStylesheet('css/comment.css');
 
 });
 
@@ -48,6 +73,24 @@ $app->router->add('php-mvc-kmom1', function() use ($app) {
         'content' => $content,
         'byline' => $byline,
     ]);
+
+    // if edit isn't loaded then do this
+    if(!$app->request->getPost('edit')){
+        $app->views->add('comment/form', [
+            'mail' => null,
+            'web' => null,
+            'name' => null,
+            'content' => null,
+            'output' => null,
+        ]);
+    }
+
+    $app->dispatcher->forward([
+        'controller' => 'comment',
+        'action'     => 'view',
+    ]);
+    $app->theme->addJavaScript('js/comment.js');
+    $app->theme->addStylesheet('css/comment.css');
 });
 
 
@@ -101,6 +144,7 @@ $app->router->add('dice-app/roll', function() use ($app) {
     $app->theme->setTitle("Rolled a dice");
 
 });
+
 
 $app->router->handle();
 $app->theme->render();

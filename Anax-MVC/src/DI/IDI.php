@@ -4,7 +4,6 @@ namespace Anax\DI;
 
 /**
  * A DI used with Anax should implement this interface.
- *
  */
 interface IDI
 {
